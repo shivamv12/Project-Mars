@@ -133,7 +133,7 @@ void main () {
 	int gd=DETECT, gm, i, j, k;
 	initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
 
-	_countryFlag();
+	// _countryFlag();
 	_loadingBar();
 
 	cld;
@@ -143,13 +143,6 @@ void main () {
 	_earth();
 	_rocket(100, getmaxy() - 100);
 	// _ignition();
-
-	//===== Some sound effect
-	// for (int a = 0; a <= 3000; a = a + 20) {
-	//	sound(a);
-	//	delay(25);
-	// }
-	// nosound();
 
 	//===== To store prev position
     int prev_i = 100, prev_j = getmaxy() - 100;
@@ -166,6 +159,7 @@ void main () {
         //===== draw rocket at current position
         _rocket(i, j);
 
+		//===== Some sound effect
 		sound(i);
 
         //===== make current position as previous position
@@ -175,6 +169,7 @@ void main () {
 		//===== Speed implementation
 		delay(500 / speed);
 
+		//===== Making system silent 
 		nosound();
     }
 
