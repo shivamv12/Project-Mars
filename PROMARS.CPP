@@ -59,26 +59,30 @@ void _loadingBar() {
 	rectangle(0, 400, getmaxx(), 405);
 	for(int i = 0; i <= getmaxx(); i++) {
 		setcolor(RED);
-		line(1, 401, i-1, 401);
-		line(1, 402, i-1, 402);
-		line(1, 403, i-1, 403);
-		line(1, 404, i-1, 404);
+		line(1, 401, i - 1, 401);
+		line(1, 402, i - 1, 402);
+		line(1, 403, i - 1, 403);
+		line(1, 404, i - 1, 404);
 		delay(10);
 	}
 }	
 
 void _rocket (int x, int y) {
 	// setcolor(WHITE);
-    // rectangle(x, y, x + 10, y - 10);
+	// rectangle(x, y, x + 10, y - 10);
 
 	setcolor(YELLOW);
 	arc(x, y, 30, 150, 25);
 	arc(x, y - 25, 210, 330, 25);
+	setcolor(RED);
+	line(x - 22, y - 12, x - 32, y - 22);
+	line(x - 32, y - 22, x - 32, y - 2);
+	line(x - 32, y - 2, x - 22, y - 12);
 
 	setcolor(CYAN);
-	setfillstyle(1, CYAN);
+	// setfillstyle(1, CYAN);
 	circle(x, y - 13, 6);
-	floodfill(x + 2, y - 11, CYAN);
+	// floodfill(x + 2, y - 11, CYAN);
 }
 
 void _rocketClear (int x, int y) {
@@ -88,7 +92,11 @@ void _rocketClear (int x, int y) {
 	setcolor(BLACK);
 	arc(x, y, 30, 150, 25);
 	arc(x, y - 25, 210, 330, 25);
-	
+	setcolor(BLACK);
+	line(x - 22, y - 12, x - 32, y - 22);
+	line(x - 32, y - 22, x - 32, y - 2);
+	line(x - 32, y - 2, x - 22, y - 12);
+
 	setcolor(BLACK);
 	setfillstyle(1, BLACK);
 	circle(x, y - 13, 6);
@@ -99,10 +107,10 @@ void main () {
 	clrscr();
 	int angle, speed;
 
-	gotoxy(150,100);
-	printf("\n\n\t\t\tWelcome to NASRDA Space Mission\n");
+	gotoxy(150, 100);
+	printf("\n\n\t\t\tWelcome to MARS Mission\n");
 	delay(1000);
-	gotoxy(350,240);
+	gotoxy(350, 240);
 	printf("\nWe are about to lauch our Mars mission.\n\tWe need to find out the exact projection speed and angle through this simulation to make our mission successful and cost effective.");
 	delay(5000);
 
@@ -141,37 +149,37 @@ void main () {
 	_mars();
 	_moon();
 	_earth();
-	_rocket(100, getmaxy() - 100);
+	_rocket(115, getmaxy() - 85);
 	// _ignition();
 
 	//===== To store prev position
-    int prev_i = 100, prev_j = getmaxy() - 100;
+	int prev_i = 115, prev_j = getmaxy() - 85;
 
-    //===== Increments will be constant for a given angle and speed
-    const int x_inc = cos(_projectionAngle) * speed;
-    const int y_inc = sin(_projectionAngle) * speed;
+	//===== Increments will be constant for a given angle and speed
+	const int x_inc = cos(_projectionAngle) * speed;
+	const int y_inc = sin(_projectionAngle) * speed;
 
-    //===== i and j will be updated with their respective increments
-    for (i = 100, j = getmaxy() - 100; i < getmaxx() + 100 && j >= -10; i += x_inc, j -= y_inc) {
-        //===== clear the previous position
-        _rocketClear(prev_i, prev_j);
+	//===== i and j will be updated with their respective increments
+	for (i = 115, j = getmaxy() - 85; i < getmaxx() + 100 && j >= -10; i += x_inc, j -= y_inc) {
+		//===== clear the previous position
+		_rocketClear(prev_i, prev_j);
 
-        //===== draw rocket at current position
-        _rocket(i, j);
+		//===== draw rocket at current position
+		_rocket(i, j);
 
 		//===== Some sound effect
 		sound(i);
 
-        //===== make current position as previous position
-        prev_i = i;
-        prev_j = j;
-        
+		//===== make current position as previous position
+		prev_i = i;
+		prev_j = j;
+
 		//===== Speed implementation
 		delay(500 / speed);
 
-		//===== Making system silent 
+		//===== Making system silent
 		nosound();
-    }
+	}
 
 	getch();
 }
